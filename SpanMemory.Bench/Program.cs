@@ -1,8 +1,6 @@
 ﻿namespace SpanMemory.Bench
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Running;
 
@@ -20,7 +18,7 @@
 
 
         [Benchmark]
-        public void Simple()
+        public void SimpleSearchIndex()
         {
             if (string.IsNullOrWhiteSpace(initialSentence)) return;
 
@@ -41,17 +39,30 @@
         }
 
         [Benchmark]
-        public void Span()
+        public void Split()
         {
-            ReadOnlySpan<char> spanRef = initialSentence.AsSpan();
+            if (string.IsNullOrWhiteSpace(initialSentence)) return;
 
-            if (spanRef.IsWhiteSpace()) return;
+            var words = initialSentence.Split(' ', StringSplitOptions.None);
 
-            int index = spanRef.IndexOf(' ');
+            foreach (var word in words)
+            {
+                
+            }
+        }
+
+        [Benchmark]
+        public void SpanSearchIndex()
+        {
+            ReadOnlySpan<char> refSentence = initialSentence.AsSpan();
+
+            if (refSentence.IsWhiteSpace()) return;
+
+            int index = refSentence.IndexOf(' ');
             
             // print
-            var word = spanRef.Slice(0, spanRef.Length - (index + 1));
-            var sentence = spanRef.Slice(index);
+            var word = refSentence.Slice(0, refSentence.Length - (index + 1));
+            var sentence = refSentence.Slice(index);
 
             while (sentence.IndexOf(' ') > 0)
             { 

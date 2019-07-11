@@ -8,9 +8,11 @@ Intel Core i7-8550U CPU 1.80GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical c
 
 
 ```
-| Method |      initialSentence |     Mean |     Error |    StdDev |   Median |  Gen 0 | Gen 1 | Gen 2 | Allocated |
-|------- |--------------------- |---------:|----------:|----------:|---------:|-------:|------:|------:|----------:|
-| **Simple** | **word1(...)word4 [23]** | **40.67 ns** | **0.3987 ns** | **0.3330 ns** | **40.69 ns** | **0.0305** |     **-** |     **-** |     **128 B** |
-|   Span | word1(...)word4 [23] | 13.03 ns | 0.2953 ns | 0.6165 ns | 13.08 ns |      - |     - |     - |         - |
-| **Simple** | **word1(...)word4 [71]** | **58.12 ns** | **0.7418 ns** | **0.6576 ns** | **57.82 ns** | **0.0762** |     **-** |     **-** |     **320 B** |
-|   Span | word1(...)word4 [71] | 17.75 ns | 0.8900 ns | 2.5248 ns | 16.86 ns |      - |     - |     - |         - |
+|            Method |      initialSentence |      Mean |     Error |    StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------------------ |--------------------- |----------:|----------:|----------:|-------:|------:|------:|----------:|
+| **SimpleSearchIndex** | **word1(...)word4 [23]** |  **34.30 ns** | **0.1958 ns** | **0.1831 ns** | **0.0305** |     **-** |     **-** |     **128 B** |
+|             Split | word1(...)word4 [23] | 108.73 ns | 1.0080 ns | 0.9429 ns | 0.0514 |     - |     - |     216 B |
+|   SpanSearchIndex | word1(...)word4 [23] |  10.52 ns | 0.0511 ns | 0.0478 ns |      - |     - |     - |         - |
+| **SimpleSearchIndex** | **word1(...)word4 [71]** |  **43.44 ns** | **0.3352 ns** | **0.3136 ns** | **0.0762** |     **-** |     **-** |     **320 B** |
+|             Split | word1(...)word4 [71] | 283.01 ns | 1.7010 ns | 1.5911 ns | 0.1426 |     - |     - |     600 B |
+|   SpanSearchIndex | word1(...)word4 [71] |  12.47 ns | 0.1237 ns | 0.1157 ns |      - |     - |     - |         - |
