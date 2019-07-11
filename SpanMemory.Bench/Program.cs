@@ -4,6 +4,8 @@
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Running;
 
+    [BenchmarkCategory("Span")]
+    [Orderer(BenchmarkDotNet.Order.SummaryOrderPolicy.FastestToSlowest)]
     [MemoryDiagnoser]
     public class TestBench
     {
@@ -13,10 +15,6 @@
         )]
         public string initialSentence;
 
-        public TestBench() {}
-
-
-
         [Benchmark]
         public void SimpleSearchIndex()
         {
@@ -25,7 +23,7 @@
             int index = initialSentence.IndexOf(' ');
             
             // print
-            var word = initialSentence.Substring(0, initialSentence.Length - index);
+            var word = initialSentence.Substring(0, initialSentence.Length - (index + 1));
             var sentence = initialSentence.Substring(index);
 
             while (sentence.IndexOf(' ') > 0)
@@ -47,7 +45,7 @@
 
             foreach (var word in words)
             {
-                
+                // print word
             }
         }
 
@@ -60,7 +58,7 @@
 
             int index = refSentence.IndexOf(' ');
             
-            // print
+            // print word
             var word = refSentence.Slice(0, refSentence.Length - (index + 1));
             var sentence = refSentence.Slice(index);
 
@@ -68,7 +66,7 @@
             { 
                 index = sentence.IndexOf(' ');
             
-                // print
+                // print word
                 word = sentence.Slice(0, sentence.Length - (index + 1));
                 sentence = sentence.Slice(index);
             }
@@ -79,7 +77,7 @@
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<TestBench>();
+            _ = BenchmarkRunner.Run<TestBench>();
         }
     }
 }
